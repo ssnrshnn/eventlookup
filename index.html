@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows Event ID Dashboard - SOC Analyst Tool</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+      <!-- Matrix Background -->
+      <canvas id="matrix-bg"></canvas>
+      
+      <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-shield-alt"></i>
+                    <h1>Windows Event ID Dashboard</h1>
+                </div>
+                <div class="subtitle">
+                    SOC Analyst Reference Tool
+                </div>
+            </div>
+        </header>
+
+        <!-- Search Section -->
+        <section class="search-section">
+            <div class="search-container">
+                <div class="search-box">
+                    <i class="fas fa-search search-icon"></i>
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        placeholder="Search by Event ID (e.g., 4625) or Event Name (e.g., failed logon)..."
+                        autocomplete="off"
+                    >
+                    <button id="clearSearch" class="clear-btn" title="Clear search">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="search-filters">
+                    <select id="categoryFilter">
+                        <option value="">All Categories</option>
+                        <option value="Authentication">Authentication</option>
+                        <option value="System">System & Boot</option>
+                        <option value="Account Management">Account Management</option>
+                        <option value="Process">Process & Application</option>
+                        <option value="File & Registry">File & Registry</option>
+                        <option value="Network">Network</option>
+                        <option value="Audit Policy">Audit Policy</option>
+                        <option value="Security">Security</option>
+                        <option value="PowerShell">PowerShell</option>
+                        <option value="Sysmon">Sysmon</option>
+                    </select>
+                    <select id="criticalityFilter">
+                        <option value="">All Criticality</option>
+                        <option value="Critical">Critical</option>
+                        <option value="High">High</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats-section">
+            <div class="stats-grid">
+                <div class="stat-card critical">
+                    <div class="stat-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number" id="criticalCount">0</div>
+                        <div class="stat-label">Critical Events</div>
+                    </div>
+                </div>
+                <div class="stat-card high">
+                    <div class="stat-icon">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number" id="highCount">0</div>
+                        <div class="stat-label">High Priority</div>
+                    </div>
+                </div>
+                <div class="stat-card medium">
+                    <div class="stat-icon">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number" id="mediumCount">0</div>
+                        <div class="stat-label">Medium Priority</div>
+                    </div>
+                </div>
+                <div class="stat-card total">
+                    <div class="stat-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number" id="totalCount">0</div>
+                        <div class="stat-label">Total Events</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section class="results-section">
+            <div class="results-header">
+                <h2>Event Results</h2>
+                <div class="results-count">
+                    Showing <span id="resultCount">0</span> events
+                </div>
+            </div>
+            
+            <div id="resultsContainer" class="results-grid">
+                <!-- Results will be populated by JavaScript -->
+            </div>
+
+            <!-- No Results -->
+            <div id="noResults" class="no-results" style="display: none;">
+                <i class="fas fa-search"></i>
+                <h3>No events found</h3>
+                <p>Try adjusting your search terms or filters</p>
+            </div>
+        </section>
+
+        <!-- Event Details Sidebar -->
+        <div id="eventSidebar" class="event-sidebar">
+            <div class="sidebar-header">
+                <h2 id="sidebarTitle">Event Details</h2>
+                <button class="sidebar-close" id="closeSidebar">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="sidebar-body" id="sidebarBody">
+                <!-- Event details will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="eventData.js"></script>
+    <script src="app.js"></script>
+</body>
+</html> 
