@@ -68,16 +68,8 @@ Simply open `index.html` in your web browser - no installation required!
 eventIDs/
 ├── index.html              # Main dashboard interface
 ├── styles.css              # Cyberpunk-themed styling with Matrix effects
-├── app.js                   # Dashboard functionality and interactions
-├── eventData.js             # Comprehensive event database (90+ events)
-├── generateEventMDs.py      # Python script to generate markdown files
-├── events/                  # Individual event documentation (90+ files)
-│   ├── README.md           # Event index and categories overview
-│   ├── 4625.md             # Failed Logon event documentation
-│   ├── 4624.md             # Successful Logon event documentation
-│   ├── 4688.md             # Process Creation event documentation
-│   ├── 4697.md             # Service Installation event documentation
-│   └── ... (90+ more)      # Complete event documentation library
+├── app.js                  # Dashboard functionality and interactions
+├── eventData.json          # Comprehensive event database in JSON format (90+ events)
 └── README.md               # Project documentation (this file)
 ```
 

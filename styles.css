@@ -1033,3 +1033,95 @@ body {
         flex-direction: column;
     }
 } 
+
+/* Full Documentation Styles */
+.full-documentation {
+    padding: 15px;
+    background: rgba(25, 30, 40, 0.7);
+    border-radius: 4px;
+    border-left: 3px solid #58a6ff;
+    font-family: 'Fira Code', monospace;
+    line-height: 1.6;
+    margin-top: 10px;
+}
+
+.full-documentation h1,
+.full-documentation h2,
+.full-documentation h3 {
+    color: #58a6ff;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.full-documentation ul {
+    padding-left: 20px;
+}
+
+.full-documentation li {
+    margin-bottom: 5px;
+}
+
+.full-documentation a {
+    color: #58a6ff;
+    text-decoration: underline;
+}
+
+.full-documentation code {
+    font-family: 'Fira Code', monospace;
+    background: rgba(30, 35, 45, 0.8);
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+
+.full-documentation pre {
+    background: rgba(30, 35, 45, 0.8);
+    padding: 15px;
+    border-radius: 4px;
+    overflow-x: auto;
+    margin: 15px 0;
+}
+
+/* Error Message Styles */
+.error-message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: rgba(255, 59, 48, 0.9);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    animation: fade-in 0.3s ease-out;
+    font-family: 'Fira Code', monospace;
+}
+
+.error-icon {
+    font-size: 1.2rem;
+    margin-right: 10px;
+}
+
+.error-text {
+    font-size: 0.9rem;
+}
+
+@keyframes fade-in {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+} 
+
+/* Add this CSS rule to make priority badges smaller in the sidebar */
+.sidebar-body .priority-badge {
+    font-size: 0.75rem;
+    padding: 3px 8px;
+} 
+
+/* Specific adjustments for each priority level in the sidebar */
+.sidebar-body .priority-badge.high,
+.sidebar-body .priority-badge.medium,
+.sidebar-body .priority-badge.low {
+    font-size: 0.7rem;
+    padding: 2px 6px;
+} 

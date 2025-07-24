@@ -66,17 +66,30 @@ class MatrixBackground {
 
 class EventDashboard {
     constructor() {
-        this.events = window.eventDatabase || [];
-        this.filteredEvents = [...this.events];
+        this.events = [];
+        this.filteredEvents = [];
         this.currentPage = 1;
         this.eventsPerPage = 20;
         this.hasSearched = false;
         
         this.initializeElements();
         this.bindEvents();
-        this.updateStats();
-        this.displayEvents();
-        this.updateResultCount();
+        
+        // Fetch the events data from JSON file
+        fetch('eventData.json')
+            .then(response => response.json())
+            .then(data => {
+                this.events = data;
+                this.filteredEvents = [...this.events];
+                this.updateStats();
+                this.displayEvents();
+                this.updateResultCount();
+                console.log(`Loaded ${this.events.length} events from eventData.json`);
+            })
+            .catch(error => {
+                console.error('Error loading event data:', error);
+                this.showError('Failed to load event data. Please try refreshing the page.');
+            });
     }
 
     initializeElements() {
@@ -312,6 +325,13 @@ class EventDashboard {
             `<ul>${event.falsePositives.map(fp => `<li>${fp}</li>`).join('')}</ul>` :
             '<p>None specified</p>';
         
+        // Add fullDescription section if available in JSON (can be added later)
+        const fullDescriptionHtml = event.fullDescription ? 
+            `<div class="detail-section">
+                <h3><i class="fas fa-book"></i> Full Documentation</h3>
+                <div class="full-documentation">${event.fullDescription}</div>
+            </div>` : '';
+        
         this.sidebarBody.innerHTML = `
             <div class="detail-section">
                 <h3><i class="fas fa-info-circle"></i> Event Information</h3>
@@ -354,6 +374,8 @@ class EventDashboard {
                 <h3><i class="fas fa-exclamation-triangle"></i> Potential False Positives</h3>
                 ${falsePositivesList}
             </div>
+            
+            ${fullDescriptionHtml}
         `;
         
         this.showSidebar();
@@ -733,6 +755,24 @@ class EventDashboard {
             cards[index].classList.add('keyboard-selected');
             cards[index].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
+    }
+
+    // Add method to show error messages
+    showError(message) {
+        const errorElement = document.createElement('div');
+        errorElement.className = 'error-message';
+        errorElement.innerHTML = `
+            <div class="error-icon"><i class="fas fa-exclamation-triangle"></i></div>
+            <div class="error-text">${message}</div>
+        `;
+        document.body.appendChild(errorElement);
+        
+        // Remove the error after 5 seconds
+        setTimeout(() => {
+            if (errorElement.parentNode) {
+                errorElement.parentNode.removeChild(errorElement);
+            }
+        }, 5000);
     }
 }
 
