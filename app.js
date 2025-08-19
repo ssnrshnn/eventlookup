@@ -338,7 +338,7 @@ class EventDashboard {
                 ${investigationList}
             </div>
             
-            ${this.generatePlaybookSection(event)}
+
             
             <div class="detail-section">
                 <h3><i class="fas fa-link"></i> Related Events</h3>
@@ -374,149 +374,11 @@ class EventDashboard {
         this.sidebar.classList.remove('active');
     }
 
-    generatePlaybookSection(event) {
-        if (!event.investigationPlaybook) {
-            return '';
-        }
 
-        const playbook = event.investigationPlaybook;
-        
-        // Collect all steps from all phases into one list
-        let allSteps = [];
-        let stepCounter = 1;
-        
-        ['immediate', 'shortTerm', 'longTerm'].forEach(phase => {
-            if (playbook[phase] && playbook[phase].steps) {
-                playbook[phase].steps.forEach(step => {
-                    allSteps.push({
-                        ...step,
-                        stepNumber: stepCounter++
-                    });
-                });
-            }
-        });
 
-        if (allSteps.length === 0) {
-            return '';
-        }
-        
-        let playbookHtml = `
-            <div class="detail-section investigation-playbook">
-                <div class="playbook-header">
-                    <h3><i class="fas fa-book-open"></i> Investigation Playbook</h3>
-                    <div class="playbook-info">
-                        <span class="step-count">${allSteps.length} Investigation Steps</span>
-                    </div>
-                </div>
-                <div class="playbook-content">
-                    <div class="steps-list">
-        `;
 
-        allSteps.forEach((step, index) => {
-            const stepId = `step-${event.id}-${index}`;
-            playbookHtml += `
-                <div class="playbook-step">
-                    <div class="step-main">
-                        <div class="step-checkbox-container">
-                            <input type="checkbox" id="${stepId}" class="step-checkbox">
-                            <span class="step-number">${step.stepNumber}</span>
-                        </div>
-                        <div class="step-content">
-                            <label for="${stepId}" class="step-title">${step.action}</label>
-                            <div class="step-meta">
-                                <span class="step-tool">${step.tool}</span>
-                            </div>
-                        </div>
-                        <button class="step-expand" onclick="this.parentElement.parentElement.classList.toggle('expanded')">
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                    </div>
-                    <div class="step-details">
-                        <div class="step-expected">
-                            <strong>Expected Result:</strong> ${step.expected}
-                        </div>
-                        <div class="step-query">
-                            <strong>Query/Command:</strong>
-                            <div class="query-container">
-                                <code>${step.query}</code>
-                                <button class="copy-btn" onclick="navigator.clipboard.writeText('${step.query.replace(/'/g, "\\'")}'); this.innerHTML='<i class=\\'fas fa-check\\'></i> Copied'; setTimeout(() => this.innerHTML='<i class=\\'fas fa-copy\\'></i>', 2000);">
-                                    <i class="fas fa-copy"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-        });
 
-        playbookHtml += `
-                    </div>
-                </div>
-                <div class="playbook-footer">
-                    <button class="playbook-action-btn reset" onclick="dashboard.resetPlaybook('${event.id}')">
-                        <i class="fas fa-undo"></i> Reset Progress
-                    </button>
-                    <button class="playbook-action-btn export" onclick="dashboard.exportPlaybook('${event.id}')">
-                        <i class="fas fa-file-export"></i> Export Guide
-                    </button>
-                </div>
-            </div>
-        `;
 
-        return playbookHtml;
-    }
-
-    resetPlaybook(eventId) {
-        const checkboxes = document.querySelectorAll(`input[id*="step-${eventId}"]`);
-        checkboxes.forEach(checkbox => {
-            checkbox.checked = false;
-        });
-    }
-
-    exportPlaybook(eventId) {
-        const event = this.events.find(e => e.id === eventId);
-        if (!event || !event.investigationPlaybook) return;
-
-        const playbook = event.investigationPlaybook;
-        
-        // Collect all steps from all phases
-        let allSteps = [];
-        let stepCounter = 1;
-        
-        ['immediate', 'shortTerm', 'longTerm'].forEach(phase => {
-            if (playbook[phase] && playbook[phase].steps) {
-                playbook[phase].steps.forEach(step => {
-                    allSteps.push({
-                        ...step,
-                        stepNumber: stepCounter++
-                    });
-                });
-            }
-        });
-
-        let exportText = `Investigation Playbook - Event ${event.id}: ${event.name}\n`;
-        exportText += `Generated: ${new Date().toLocaleString()}\n`;
-        exportText += `Total Steps: ${allSteps.length}\n\n`;
-        exportText += '='.repeat(60) + '\n\n';
-
-        allSteps.forEach((step) => {
-            exportText += `${step.stepNumber}. ${step.action}\n`;
-            exportText += `   Tool: ${step.tool}\n`;
-            exportText += `   Expected: ${step.expected}\n`;
-            exportText += `   Query: ${step.query}\n`;
-            exportText += `   Status: [ ] Not Started\n\n`;
-        });
-
-        const blob = new Blob([exportText], { type: 'text/plain' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `investigation_playbook_${eventId}.txt`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-    }
 
     showNoResults() {
         this.resultsContainer.style.display = 'none';

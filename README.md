@@ -1,6 +1,6 @@
 # 🛡️ Windows Event ID Dashboard - SOC Analyst Tool
 
-A comprehensive, interactive web-based dashboard for Windows Event ID analysis designed specifically for SOC (Security Operations Center) analysts. Features a cyberpunk/hacker-themed interface with extensive Event ID documentation and investigation playbooks.
+A comprehensive, interactive web-based dashboard for Windows Event ID analysis designed specifically for SOC (Security Operations Center) analysts. Features a cyberpunk/hacker-themed interface with extensive Event ID documentation and investigation guidance.
 
 ## ✨ Live Demo
 
@@ -12,7 +12,7 @@ Simply open `index.html` in your web browser - no installation required!
 - **Search-driven interface** - Real-time search by Event ID, name, or keywords
 - **Advanced filtering** - Filter by category (Authentication, System, Network, etc.) and criticality level
 - **Real-time statistics** - Live event count by priority level with visual indicators
-- **Detailed event sidebar** - Comprehensive information with investigation playbooks
+- **Detailed event sidebar** - Comprehensive information with investigation guidance
 - **Responsive design** - Works on desktop, tablet, and mobile devices
 
 ### 🎨 **Cyberpunk/Hacker Theme**
@@ -23,20 +23,19 @@ Simply open `index.html` in your web browser - no installation required!
 - **Dark theme optimized** - Easy on the eyes during long SOC shifts
 
 ### 📚 **Comprehensive Event Database**
-- **90+ Windows Event IDs** - Curated collection of the most critical security events
+- **164 Windows Event IDs** - Comprehensive collection of the most critical security events including complete Sysmon coverage (Events 1-29 + 255) and essential Windows Security events
 - **Detailed event information** including:
   - Investigation tips and SOC analyst guidance
   - MITRE ATT&CK tactics and techniques mapping
   - Related events and cross-references
   - Common causes and false positive indicators
   - Criticality levels (Critical, High, Medium, Low)
-  - Detection queries for Splunk, ELK, and PowerShell
+  - Investigation guidance for SOC analysts
 
 ### 📝 **Individual Event Documentation**
-- **90+ individual markdown files** - One for each event ID with detailed documentation
+- **160 individual markdown files** - One for each event ID with detailed documentation
 - **Structured format** - Consistent documentation structure across all events
-- **Investigation playbooks** - Step-by-step SOC response procedures
-- **Detection queries** - Ready-to-use search queries for popular SIEM platforms
+- **Investigation guidance** - SOC analyst tips and investigation approaches
 - **Cross-referenced links** - Easy navigation between related events
 
 ## 🚀 Quick Start
@@ -69,15 +68,15 @@ eventIDs/
 ├── index.html              # Main dashboard interface
 ├── styles.css              # Cyberpunk-themed styling with Matrix effects
 ├── app.js                   # Dashboard functionality and interactions
-├── eventData.js             # Comprehensive event database (90+ events)
+├── eventData.js             # Comprehensive event database (164 events)
 ├── generateEventMDs.py      # Python script to generate markdown files
-├── events/                  # Individual event documentation (90+ files)
+├── events/                  # Individual event documentation (160 files)
 │   ├── README.md           # Event index and categories overview
 │   ├── 4625.md             # Failed Logon event documentation
 │   ├── 4624.md             # Successful Logon event documentation
 │   ├── 4688.md             # Process Creation event documentation
 │   ├── 4697.md             # Service Installation event documentation
-│   └── ... (90+ more)      # Complete event documentation library
+│   └── ... (160 more)      # Complete event documentation library
 └── README.md               # Project documentation (this file)
 ```
 
@@ -187,12 +186,12 @@ eventIDs/
 
 ## 📊 Statistics
 
-- **Total Events:** 90+ Windows Event IDs
+- **Total Events:** 164 Windows Event IDs
 - **Critical Priority:** High-impact security events
 - **High Priority:** Authentication and privilege escalation events  
 - **Medium Priority:** System and application events
 - **Low Priority:** Informational and diagnostic events
-- **Documentation Files:** 90+ detailed markdown files
+- **Documentation Files:** 160 detailed markdown files
 - **Event Categories:** 10+ categories (Authentication, System, Network, etc.)
 - **Data Sources:** Microsoft Official Documentation + Security Community Best Practices
 
@@ -264,7 +263,7 @@ Contributions are welcome! Here's how you can help:
 ## 🎯 Use Cases
 
 - **SOC Analysts** - Quick reference during incident investigation
-- **Security Engineers** - Building detection rules and playbooks
+- **Security Engineers** - Building detection rules and investigation procedures
 - **Threat Hunters** - Understanding Windows event patterns
 - **Security Training** - Learning Windows security event analysis
 - **Compliance Teams** - Understanding audit requirements
@@ -277,6 +276,8 @@ Contributions are welcome! Here's how you can help:
 - [Windows Event Forwarding](https://docs.microsoft.com/en-us/windows/security/threat-protection/use-windows-event-forwarding-to-assist-in-intrusion-detection)
 
 ## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 This project is open source and available for security professionals and educational purposes.
 
